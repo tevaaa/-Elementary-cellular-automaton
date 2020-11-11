@@ -1,0 +1,14 @@
+on considère une case c vide ou pleine dans la grille, 
+0-> case vide 
+1-> case pleine
+
+situatuions possible:
+
+    000     001     100     101     010     011     110     111 
+
+
+situations intéressantes:
+    000     001     100     101     010     011     110     111     <- Triangle Sierpinsky
+     |       |       |       |       |       |       |       |
+     0       1       1       1       1       1       1       0
+     
