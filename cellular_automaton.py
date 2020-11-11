@@ -1,61 +1,63 @@
-grille = [
+grid = [
     []
 ]
 
-def creer_grille(n):
-    initialisation = int(n/2)
+def create_grid(n):
+    start = int(n/2)
     for i in range(n):
-        if i == initialisation:
-            grille[0].append(1)
+        if i == start:
+            grid[0].append(1)
         else:
-            grille[0].append(0)
+            grid[0].append(0)
     for _ in range(n):
-        grille.append([])
+        grid.append([])
 
-    for i in range(1,len(grille)):
+    for i in range(1,len(grid)):
         for _ in range(n):
-            grille[i].append(0)
-    return grille
+            grid[i].append(0)
+    return grid
 
 
-#liste conditions: 000     001     100     101     010     011     110     111
-conditions = [0,1,1,1,1,1,1,0]
+#111 / 110 / 101 / 100 / 011 / 010 / 001 / 000
+
+rules = [1,0,0,1,0,1,1,0]   # <- Change here to change rules
+                            # remarkable rules https://mathworld.wolfram.com/ElementaryCellularAutomaton.html
 
 
-def evolution(gd,cond):
+def evolution(gd,rule):
     for j in range(0,len(gd)-1):
 
         for i in range(1,len(gd[j])-1):
-            if gd[j][i] == 0:   # <- si la case est vide
+            if gd[j][i] == 0:   # <- if cell is empty
 
-                if gd[j][i-1] == 0 and gd[j][i+1] == 0:     # condition 0
-                    gd[j+1][i] = cond[0]
+                if gd[j][i-1] == 0 and gd[j][i+1] == 0:     # 2 around empty
+                    gd[j+1][i] = rule[7]
 
-                elif gd[j][i-1] == 0 and gd[j][i+1] == 1:   # condition 1
-                    gd[j+1][i] = cond[1]
+                elif gd[j][i-1] == 0 and gd[j][i+1] == 1:   # left empty, right full
+                    gd[j+1][i] = rule[6]
                     
-                elif gd[j][i-1] == 1 and gd[j][i+1] == 0:   # condition 2
-                    gd[j+1][i] = cond[2]
+                elif gd[j][i-1] == 1 and gd[j][i+1] == 0:   # left full, right empty
+                    gd[j+1][i] = rule[3]
                     
-                elif gd[j][i-1] == 1 and gd[j][i+1] == 1:   # condition 3
-                    gd[j+1][i] = cond[3]
+                elif gd[j][i-1] == 1 and gd[j][i+1] == 1:   # 2 around full
+                    gd[j+1][i] = rule[2]
 
-            else:                   # <- la case est pleine
+            else:                   # <- cell is full
                     
-                if gd[j][i-1] == 0 and gd[j][i+1] == 0:     # condition 4
-                    gd[j+1][i] = cond[4]
+                if gd[j][i-1] == 0 and gd[j][i+1] == 0:     # 2 around empty
+                    gd[j+1][i] = rule[5]
 
-                elif gd[j][i-1] == 0 and gd[j][i+1] == 1:   # condition 5
-                    gd[j+1][i] = cond[5]
+                elif gd[j][i-1] == 0 and gd[j][i+1] == 1:   # left empty, right full
+                    gd[j+1][i] = rule[4]
                     
-                elif gd[j][i-1] == 1 and gd[j][i+1] == 0:   # condition 6
-                    gd[j+1][i] = cond[6]
+                elif gd[j][i-1] == 1 and gd[j][i+1] == 0:   # left full, right empty
+                    gd[j+1][i] = rule[1]
                     
-                elif gd[j][i-1] == 1 and gd[j][i+1] == 1:   # condition 7
-                    gd[j+1][i] = cond[7]
-    return grille
+                elif gd[j][i-1] == 1 and gd[j][i+1] == 1:   # 2 around full
+                    gd[j+1][i] = rule[0]
+    return gd
 
-grille = evolution(creer_grille(500), conditions)
+grid = evolution(create_grid(400), rules)
 
 
 
