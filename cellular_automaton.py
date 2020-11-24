@@ -20,7 +20,7 @@ def create_grid(n):
 
 #111 / 110 / 101 / 100 / 011 / 010 / 001 / 000
 
-rules = [1,0,0,1,0,1,1,0]   # <- Change here to change rules
+rules = [1,1,1,1,1,0,1,0]   # <- Change here to change rules
                             # remarkable rules https://mathworld.wolfram.com/ElementaryCellularAutomaton.html
 
 
